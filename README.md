@@ -1,62 +1,89 @@
+
+Baby AI is a Python-based, human-like conversational agent designed to learn and adapt in real time through memory and feedback. The project combines memory-augmented learning, simple reinforcement learning, natural language understanding, and a lightweight cognitive network to simulate a developing childâ€™s curiosity and growth. It is implemented with widely used open-source libraries such as PyTorch and the Transformers ecosystem, enabling researchers and developers to experiment with language generation, memory retrieval, and decision-making in a compact, extensible package.
+
+Core concept:
+At its heart, Baby AI maintains a structured memory of past interactions as experiences, each annotated with an emotional tag and an importance weight. When a new user input arrives, the system recalls the most relevant memories and uses them to inform the response. If recall quality is insufficient, it falls back to a language model (GPT-2) to generate a contextually appropriate reply. This design enables the agent to simulate ongoing learning across conversations, gradually aligning its behavior with user preferences and accumulated experiences.
+
+Memory subsystem:
+The memory component encodes textual events into vector representations and supports recall by similarity to a query. Memories are stored with associated emotion labels and an importance score, which guides retrieval and future updates. This module provides a foundation for experiential learning and personalized interactions over time.
+
+Learning and adaptation:
+Baby AI implements a simple reinforcement-learning loop. The agent updates its action-value estimates (Q-values) using observed rewards and transitions, enabling it to refine its responses based on user feedback. An initial set of base memories seeds the agentâ€™s early behavior, while continuous experiences shape evolving preferences.
+
+Natural language processing:
+A GPT-2-based language model generates fluent, context-aware responses. An emotion detector, even in a lightweight form, offers a first-pass qualitative understanding of user sentiment, enabling the system to adjust tone and content. The NLP component is designed to be modular, allowing easy replacement with more advanced models as needed.
+
+Cognitive control:
+A lightweight neural network serves as the cognitive backbone, providing structured decision-making for emotional labeling and action selection. This component can be extended to handle more nuanced affective states or to integrate with external perception modules.
+
+Voice interface:
+Optional voice I/O is supported via SpeechRecognition for speech-to-text and pyttsx3 for text-to-speech, enabling hands-free interaction. The architecture supports both audio and text-based interfaces, making Baby AI suitable for diverse use cases, from educational tools to interactive assistants.
+
+Usage and extensibility:
+The repository is organized for easy extension: modular modules, clear APIs, and documented interfaces. Developers can swap in alternative models, extend memory schemas, or integrate new reward structures. The project aims to be a friendly starting point for researchers and students exploring emergent behavior in learning agents.
+
+
 # baby AI
 
-baby AI í˜ åæÔ ãÕäæÚí ÇäÓÇäæäå ÇÓÊ ˜å Èå ÕæÑÊ ÊÚÇãáí ÇÒ ØÑíŞ ÍÇİÙå æ ÈÇÒÎæÑÏ íÇÏ ãííÑÏ. Çíä Ñæå ÈÇ ÇíÊæä äæÔÊå ÔÏå æ ÇÒ ãÏá ÒÈÇä GPT-2 ÈÑÇí ÊæáíÏ ÇÓÎåÇ ÇÓÊİÇÏå ãí˜äÏ æ í˜ ÓíÓÊã ÍÇİÙå-íÇÏíÑí ÈÑÇí ĞÎíÑå ÊÌÑÈíÇÊ æ ÈåÈæÏ ÇÓÎåÇ İÑÇåã ãí˜äÏ. ÚáÇæå ÈÑ ÇÓÎ ãÊäí¡ Çã˜Çä ÇÓÎ ÕæÊí äíÒ æÌæÏ ÏÇÑÏ (ÏÑ ÕæÑÊ İÚÇá ÈæÏä ˜ÊÇÈÎÇäååÇí ÕæÊí).
+baby AI ÛŒÚ© Ù‡ÙˆØ´ Ù…ØµÙ†ÙˆØ¹ÛŒ Ø§Ù†Ø³Ø§Ù†â€ŒÚ¯ÙˆÙ†Ù‡ Ø§Ø³Øª Ú©Ù‡ Ø¨Ù‡ ØµÙˆØ±Øª ØªØ¹Ø§Ù…Ù„ÛŒ Ø§Ø² Ø·Ø±ÛŒÙ‚ Ø­Ø§ÙØ¸Ù‡ Ùˆ Ø¨Ø§Ø²Ø®ÙˆØ±Ø¯ ÛŒØ§Ø¯ Ù…ÛŒâ€ŒÚ¯ÛŒØ±Ø¯. Ø§ÛŒÙ† Ù¾Ø±ÙˆÚ˜Ù‡ Ø¨Ø§ Ù¾Ø§ÛŒØªÙˆÙ† Ù†ÙˆØ´ØªÙ‡ Ø´Ø¯Ù‡ Ùˆ Ø§Ø² Ù…Ø¯Ù„ Ø²Ø¨Ø§Ù† GPT-2 Ø¨Ø±Ø§ÛŒ ØªÙˆÙ„ÛŒØ¯ Ù¾Ø§Ø³Ø®â€ŒÙ‡Ø§ Ø§Ø³ØªÙØ§Ø¯Ù‡ Ù…ÛŒâ€ŒÚ©Ù†Ø¯ Ùˆ ÛŒÚ© Ø³ÛŒØ³ØªÙ… Ø­Ø§ÙØ¸Ù‡-ÛŒØ§Ø¯Ú¯ÛŒØ±ÛŒ Ø¨Ø±Ø§ÛŒ Ø°Ø®ÛŒØ±Ù‡ ØªØ¬Ø±Ø¨ÛŒØ§Øª Ùˆ Ø¨Ù‡Ø¨ÙˆØ¯ Ù¾Ø§Ø³Ø®â€ŒÙ‡Ø§ ÙØ±Ø§Ù‡Ù… Ù…ÛŒâ€ŒÚ©Ù†Ø¯. Ø¹Ù„Ø§ÙˆÙ‡ Ø¨Ø± Ù¾Ø§Ø³Ø® Ù…ØªÙ†ÛŒØŒ Ø§Ù…Ú©Ø§Ù† Ù¾Ø§Ø³Ø® ØµÙˆØªÛŒ Ù†ÛŒØ² ÙˆØ¬ÙˆØ¯ Ø¯Ø§Ø±Ø¯ (Ø¯Ø± ØµÙˆØ±Øª ÙØ¹Ø§Ù„ Ø¨ÙˆØ¯Ù† Ú©ØªØ§Ø¨Ø®Ø§Ù†Ù‡â€ŒÙ‡Ø§ÛŒ ØµÙˆØªÛŒ).
 
-## ÊæÖíÍ ˜æÊÇå
+## ØªÙˆØ¶ÛŒØ­ Ú©ÙˆØªØ§Ù‡
 
-baby AI ÊÌÑÈå í˜ ã˜Çáãå ØÈíÚí ÑÇ ÔÈíå Èå İÊæí ÈÇ í˜ ˜æÏ˜ ÇäÓÇäæäå ÇÑÇÆå ãíÏåÏ: äåÏÇÑí ÎÇØÑÇÊ¡ íÇÏíÑí ÇÒ ÈÇÒÎæÑÏ¡ æ ÇÓÎæíí Èå ˜ÇÑÈÑ ÈÇ ÇÓÊİÇÏå ÇÒ ãÏá ÒÈÇäí æ í˜ ÔÈ˜å ÊÕãíãíÑí ÓÇÏå.
-
----
-
-## æííåÇí ˜áíÏí
-
-- ÍÇİÙå íÇÏíÑí åãÑÇ: ĞÎíÑå ÎÇØÑÇÊ æ ÊÌÑÈíÇÊ ÈÇ ãÏíÑíÊ ÇåãíÊ
-- íÇÏíÑí ÓØÍí/ÊŞæíÊí Çíå: ÈåÑæÒÑÓÇäí ÇÓÎåÇ ÇÒ ØÑíŞ ÈÇÒÎæÑÏ
-- ÑÏÇÒÔ ÒÈÇä ØÈíÚí: ÇÓÎ ÈÇ GPT-2 æ ÊÔÎíÕ ÇÍÓÇÓ ÓÇÏå
-- ÊÕãíãíÑí ÔäÇÎÊí: ÔÈ˜å ÚÕÈí ÓÇÏå ÈÑÇí ØÈŞåÈäÏí ÍÇáÇÊ ÇÍÓÇÓí
-- æÑæÏí/ÎÑæÌí ÕæÊí (ÇÎÊíÇÑí): ÊÔÎíÕ İÊÇÑ æ ÊÈÏíá ÇÓÎ Èå İÊÇÑ
-- ÑÇÈØ ˜ÇÑÈÑí İÊæíí: ÊÚÇãá Èíä ÕæÊí æ ãÊäí
+baby AI ØªØ¬Ø±Ø¨Ù‡ ÛŒÚ© Ù…Ú©Ø§Ù„Ù…Ù‡ Ø·Ø¨ÛŒØ¹ÛŒ Ø±Ø§ Ø´Ø¨ÛŒÙ‡ Ø¨Ù‡ Ú¯ÙØªÚ¯ÙˆÛŒ Ø¨Ø§ ÛŒÚ© Ú©ÙˆØ¯Ú© Ø§Ù†Ø³Ø§Ù†â€ŒÚ¯ÙˆÙ†Ù‡ Ø§Ø±Ø§Ø¦Ù‡ Ù…ÛŒâ€ŒØ¯Ù‡Ø¯: Ù†Ú¯Ù‡Ø¯Ø§Ø±ÛŒ Ø®Ø§Ø·Ø±Ø§ØªØŒ ÛŒØ§Ø¯Ú¯ÛŒØ±ÛŒ Ø§Ø² Ø¨Ø§Ø²Ø®ÙˆØ±Ø¯ØŒ Ùˆ Ù¾Ø§Ø³Ø®â€ŒÚ¯ÙˆÛŒÛŒ Ø¨Ù‡ Ú©Ø§Ø±Ø¨Ø± Ø¨Ø§ Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø§Ø² Ù…Ø¯Ù„ Ø²Ø¨Ø§Ù†ÛŒ Ùˆ ÛŒÚ© Ø´Ø¨Ú©Ù‡ ØªØµÙ…ÛŒÙ…â€ŒÚ¯ÛŒØ±ÛŒ Ø³Ø§Ø¯Ù‡.
 
 ---
 
-## ãÚãÇÑí æ ÓÇÎÊÇÑ Ñæå
+## ÙˆÛŒÚ˜Ú¯ÛŒâ€ŒÙ‡Ø§ÛŒ Ú©Ù„ÛŒØ¯ÛŒ
 
-- ÒÈÇäåÇ æ İäÇæÑíåÇ:
+- Ø­Ø§ÙØ¸Ù‡ ÛŒØ§Ø¯Ú¯ÛŒØ±ÛŒ Ù‡Ù…Ú¯Ø±Ø§: Ø°Ø®ÛŒØ±Ù‡ Ø®Ø§Ø·Ø±Ø§Øª Ùˆ ØªØ¬Ø±Ø¨ÛŒØ§Øª Ø¨Ø§ Ù…Ø¯ÛŒØ±ÛŒØª Ø§Ù‡Ù…ÛŒØª
+- ÛŒØ§Ø¯Ú¯ÛŒØ±ÛŒ Ø³Ø·Ø­ÛŒ/ØªÙ‚ÙˆÛŒØªÛŒ Ù¾Ø§ÛŒÙ‡: Ø¨Ù‡â€ŒØ±ÙˆØ²Ø±Ø³Ø§Ù†ÛŒ Ù¾Ø§Ø³Ø®â€ŒÙ‡Ø§ Ø§Ø² Ø·Ø±ÛŒÙ‚ Ø¨Ø§Ø²Ø®ÙˆØ±Ø¯
+- Ù¾Ø±Ø¯Ø§Ø²Ø´ Ø²Ø¨Ø§Ù† Ø·Ø¨ÛŒØ¹ÛŒ: Ù¾Ø§Ø³Ø® Ø¨Ø§ GPT-2 Ùˆ ØªØ´Ø®ÛŒØµ Ø§Ø­Ø³Ø§Ø³ Ø³Ø§Ø¯Ù‡
+- ØªØµÙ…ÛŒÙ…â€ŒÚ¯ÛŒØ±ÛŒ Ø´Ù†Ø§Ø®ØªÛŒ: Ø´Ø¨Ú©Ù‡ Ø¹ØµØ¨ÛŒ Ø³Ø§Ø¯Ù‡ Ø¨Ø±Ø§ÛŒ Ø·Ø¨Ù‚Ù‡â€ŒØ¨Ù†Ø¯ÛŒ Ø­Ø§Ù„Ø§Øª Ø§Ø­Ø³Ø§Ø³ÛŒ
+- ÙˆØ±ÙˆØ¯ÛŒ/Ø®Ø±ÙˆØ¬ÛŒ ØµÙˆØªÛŒ (Ø§Ø®ØªÛŒØ§Ø±ÛŒ): ØªØ´Ø®ÛŒØµ Ú¯ÙØªØ§Ø± Ùˆ ØªØ¨Ø¯ÛŒÙ„ Ù¾Ø§Ø³Ø® Ø¨Ù‡ Ú¯ÙØªØ§Ø±
+- Ø±Ø§Ø¨Ø· Ú©Ø§Ø±Ø¨Ø±ÛŒ Ú¯ÙØªÚ¯ÙˆÛŒÛŒ: ØªØ¹Ø§Ù…Ù„ Ø¨ÛŒÙ† ØµÙˆØªÛŒ Ùˆ Ù…ØªÙ†ÛŒ
+
+---
+
+## Ù…Ø¹Ù…Ø§Ø±ÛŒ Ùˆ Ø³Ø§Ø®ØªØ§Ø± Ù¾Ø±ÙˆÚ˜Ù‡
+
+- Ø²Ø¨Ø§Ù†â€ŒÙ‡Ø§ Ùˆ ÙÙ†Ø§ÙˆØ±ÛŒâ€ŒÙ‡Ø§:
   - Python
-  - PyTorch (ÔÈ˜å ÚÕÈí ÓÇÏå)
-  - transformers (GPT-2) æ tokenizer
+  - PyTorch (Ø´Ø¨Ú©Ù‡ Ø¹ØµØ¨ÛŒ Ø³Ø§Ø¯Ù‡)
+  - transformers (GPT-2) Ùˆ tokenizer
   - NumPy
-  - SpeechRecognition (æÑæÏí ÕæÊí) æ pyttsx3 (ÎÑæÌí ÕæÊí) — ÏÑ ÕæÑÊ ÇÓÊİÇÏå
+  - SpeechRecognition (ÙˆØ±ÙˆØ¯ÛŒ ØµÙˆØªÛŒ) Ùˆ pyttsx3 (Ø®Ø±ÙˆØ¬ÛŒ ØµÙˆØªÛŒ) â€” Ø¯Ø± ØµÙˆØ±Øª Ø§Ø³ØªÙØ§Ø¯Ù‡
 
-- ãÇæáåÇí ÇÕáí (äÇãåÇí íÔäåÇÏí):
-  - memory.py / memory_system: ãÏíÑíÊ ÎÇØÑÇÊ æ ÈÇÒÎæÇäí
-  - reinforcement.py / reinforcement_learning: íÇÏíÑí ÊŞæíÊí Çíå
-  - nlu.py / nlu_processor: ÑÏÇÒÔ ÒÈÇä ØÈíÚí æ ÊÔÎíÕ ÇÍÓÇÓ
-  - cognitive_network.py: ÔÈ˜å ÚÕÈí ÊÕãíãíÑí
-  - voice.py: æÑæÏí/ÎÑæÌí ÕæÊí
-  - ai.py / main.py: åÓÊå í˜ÇÑå
+- Ù…Ø§Ú˜ÙˆÙ„â€ŒÙ‡Ø§ÛŒ Ø§ØµÙ„ÛŒ (Ù†Ø§Ù…â€ŒÙ‡Ø§ÛŒ Ù¾ÛŒØ´Ù†Ù‡Ø§Ø¯ÛŒ):
+  - memory.py / memory_system: Ù…Ø¯ÛŒØ±ÛŒØª Ø®Ø§Ø·Ø±Ø§Øª Ùˆ Ø¨Ø§Ø²Ø®ÙˆØ§Ù†ÛŒ
+  - reinforcement.py / reinforcement_learning: ÛŒØ§Ø¯Ú¯ÛŒØ±ÛŒ ØªÙ‚ÙˆÛŒØªÛŒ Ù¾Ø§ÛŒÙ‡
+  - nlu.py / nlu_processor: Ù¾Ø±Ø¯Ø§Ø²Ø´ Ø²Ø¨Ø§Ù† Ø·Ø¨ÛŒØ¹ÛŒ Ùˆ ØªØ´Ø®ÛŒØµ Ø§Ø­Ø³Ø§Ø³
+  - cognitive_network.py: Ø´Ø¨Ú©Ù‡ Ø¹ØµØ¨ÛŒ ØªØµÙ…ÛŒÙ…â€ŒÚ¯ÛŒØ±ÛŒ
+  - voice.py: ÙˆØ±ÙˆØ¯ÛŒ/Ø®Ø±ÙˆØ¬ÛŒ ØµÙˆØªÛŒ
+  - ai.py / main.py: Ù‡Ø³ØªÙ‡ ÛŒÚ©Ù¾Ø§Ø±Ú†Ù‡
 
-- ÓÇÎÊÇÑ ÏÇíÑ˜ÊæÑí íÔäåÇÏí:
-baby_ai/
-??? src/
-? ??? memory.py
-? ??? reinforcement.py
-? ??? nlu.py
-? ??? cognitive_network.py
-? ??? voice.py
-? ??? ai.py
-??? models/
-? ??? pretrained_gpt2/ (ÏÇäáæÏ ÔÏå ÏÑ ÕæÑÊ äíÇÒ)
-??? tests/
-??? README.md
-??? requirements.txt
-??? LICENSE
+- Ø³Ø§Ø®ØªØ§Ø± Ø¯Ø§ÛŒØ±Ú©ØªÙˆØ±ÛŒ Ù¾ÛŒØ´Ù†Ù‡Ø§Ø¯ÛŒ:
+
+- baby_ai/
+â”œâ”€â”€ src/
+â”‚ â”œâ”€â”€ memory.py
+â”‚ â”œâ”€â”€ reinforcement.py
+â”‚ â”œâ”€â”€ nlu.py
+â”‚ â”œâ”€â”€ cognitive_network.py
+â”‚ â”œâ”€â”€ voice.py
+â”‚ â””â”€â”€ ai.py
+â”œâ”€â”€ models/
+â”‚ â””â”€â”€ pretrained_gpt2/ (Ø¯Ø§Ù†Ù„ÙˆØ¯ Ø´Ø¯Ù‡ Ø¯Ø± ØµÙˆØ±Øª Ù†ÛŒØ§Ø²)
+â”œâ”€â”€ tests/
+â”œâ”€â”€ README.md
+â”œâ”€â”€ requirements.txt
+â””â”€â”€ LICENSE
+
 
 ---  
 
-## äÕÈ æ ÑÇåÇäÏÇÒí  
+## Ù†ØµØ¨ Ùˆ Ø±Ø§Ù‡â€ŒØ§Ù†Ø¯Ø§Ø²ÛŒ  
 
-1) ÇíÌÇÏ ãÍíØ ãÌÇÒí  
+1) Ø§ÛŒØ¬Ø§Ø¯ Ù…Ø­ÛŒØ· Ù…Ø¬Ø§Ø²ÛŒ  
 - Linux/macOS:  
   - python3 -m venv venv  
   - source venv/bin/activate  
@@ -64,30 +91,30 @@ baby_ai/
   - python -m venv venv  
   - venv\Scripts\activate  
 
-2) äÕÈ æÇÈÓÊíåÇ  
+2) Ù†ØµØ¨ ÙˆØ§Ø¨Ø³ØªÚ¯ÛŒâ€ŒÙ‡Ø§  
 - pip install -r requirements.txt  
 
-3) ÏÇäáæÏ ãÏáåÇí áÇÒã  
-- ãÏá GPT-2 ÑÇ ÇÒ ØÑíŞ ˜ÊÇÈÎÇäå ÊÑäÓİæÑãÑåÇ ÏÇäáæÏ ˜äíÏ æ ÏÑ æÔå models/pretrained_gpt2 ŞÑÇÑ ÏåíÏ (ÇÑ ÇÒ ãÏá ÎÇã ÇÓÊİÇÏå ãí˜äíÏ).  
+3) Ø¯Ø§Ù†Ù„ÙˆØ¯ Ù…Ø¯Ù„â€ŒÙ‡Ø§ÛŒ Ù„Ø§Ø²Ù…  
+- Ù…Ø¯Ù„ GPT-2 Ø±Ø§ Ø§Ø² Ø·Ø±ÛŒÙ‚ Ú©ØªØ§Ø¨Ø®Ø§Ù†Ù‡ ØªØ±Ù†Ø³ÙÙˆØ±Ù…Ø±Ù‡Ø§ Ø¯Ø§Ù†Ù„ÙˆØ¯ Ú©Ù†ÛŒØ¯ Ùˆ Ø¯Ø± Ù¾ÙˆØ´Ù‡ models/pretrained_gpt2 Ù‚Ø±Ø§Ø± Ø¯Ù‡ÛŒØ¯ (Ø§Ú¯Ø± Ø§Ø² Ù…Ø¯Ù„ Ø®Ø§Ù… Ø§Ø³ØªÙØ§Ø¯Ù‡ Ù…ÛŒâ€ŒÚ©Ù†ÛŒØ¯).  
 
-4) ÇÌÑÇí ÈÑäÇãå  
-- ÈÇ ÊæÌå Èå ÓÇÎÊÇÑ Ñæå ÎæÏ:  
+4) Ø§Ø¬Ø±Ø§ÛŒ Ø¨Ø±Ù†Ø§Ù…Ù‡  
+- Ø¨Ø§ ØªÙˆØ¬Ù‡ Ø¨Ù‡ Ø³Ø§Ø®ØªØ§Ø± Ù¾Ø±ÙˆÚ˜Ù‡ Ø®ÙˆØ¯:  
   - python -m baby_ai  
-  - íÇ python src/ai.py  
+  - ÛŒØ§ python src/ai.py  
 
-5) ä˜ÇÊ ÇÖÇİí  
-- ÇÑ ÇÒ æÑæÏí ÕæÊí ÇÓÊİÇÏå ãí˜äíÏ:  
-  - ãØãÆä ÔæíÏ ˜å ˜ÇÑÈÑ ãíÊæÇäÏ Èå ãí˜Ñæİæä ÏÓÊÑÓí ÏÇÔÊå ÈÇÔÏ.  
-  - ˜ÊÇÈÎÇäååÇí ÕæÊí (SpeechRecognition¡ PyAudio íÇ alternatives) ÈÇíÏ äÕÈ ÔæäÏ.  
-- ÇÑ ÇÈÒÇÑ ÕæÊí İÚÇá äíÓÊ¡ ÇÒ æÑæÏí ãÊäí ÈåÑå ÈÈÑíÏ.  
+5) Ù†Ú©Ø§Øª Ø§Ø¶Ø§ÙÛŒ  
+- Ø§Ú¯Ø± Ø§Ø² ÙˆØ±ÙˆØ¯ÛŒ ØµÙˆØªÛŒ Ø§Ø³ØªÙØ§Ø¯Ù‡ Ù…ÛŒâ€ŒÚ©Ù†ÛŒØ¯:  
+  - Ù…Ø·Ù…Ø¦Ù† Ø´ÙˆÛŒØ¯ Ú©Ù‡ Ú©Ø§Ø±Ø¨Ø± Ù…ÛŒâ€ŒØªÙˆØ§Ù†Ø¯ Ø¨Ù‡ Ù…ÛŒÚ©Ø±ÙˆÙÙˆÙ† Ø¯Ø³ØªØ±Ø³ÛŒ Ø¯Ø§Ø´ØªÙ‡ Ø¨Ø§Ø´Ø¯.  
+  - Ú©ØªØ§Ø¨Ø®Ø§Ù†Ù‡â€ŒÙ‡Ø§ÛŒ ØµÙˆØªÛŒ (SpeechRecognitionØŒ PyAudio ÛŒØ§ alternatives) Ø¨Ø§ÛŒØ¯ Ù†ØµØ¨ Ø´ÙˆÙ†Ø¯.  
+- Ø§Ú¯Ø± Ø§Ø¨Ø²Ø§Ø± ØµÙˆØªÛŒ ÙØ¹Ø§Ù„ Ù†ÛŒØ³ØªØŒ Ø§Ø² ÙˆØ±ÙˆØ¯ÛŒ Ù…ØªÙ†ÛŒ Ø¨Ù‡Ø±Ù‡ Ø¨Ø¨Ø±ÛŒØ¯.  
 
 ---  
 
-## äÍæå ÇÓÊİÇÏå (äãæäååÇ)  
+## Ù†Ø­ÙˆÙ‡ Ø§Ø³ØªÙØ§Ø¯Ù‡ (Ù†Ù…ÙˆÙ†Ù‡â€ŒÙ‡Ø§)  
 
-- ÇÌÑÇí ã˜Çáãå ãÊäí ÓÇÏå (İÑÖÇğ ÈÇ í˜ æÑæÏí ÇÒ ˜ÇÑÈÑ):  
+- Ø§Ø¬Ø±Ø§ÛŒ Ù…Ú©Ø§Ù„Ù…Ù‡ Ù…ØªÙ†ÛŒ Ø³Ø§Ø¯Ù‡ (ÙØ±Ø¶Ø§Ù‹ Ø¨Ø§ ÛŒÚ© ÙˆØ±ÙˆØ¯ÛŒ Ø§Ø² Ú©Ø§Ø±Ø¨Ø±):  
   - python -m baby_ai  
-  - íÇ python src/ai.py  
+  - ÛŒØ§ python src/ai.py  
 
-- ÇÓÊİÇÏå ÇÒ æÑæÏí ÕæÊí (ÏÑ ÕæÑÊ ÔÊíÈÇäí):  
-  - ÇÌÑÇí ÇÓ˜ÑíÊ æ
+- Ø§Ø³ØªÙØ§Ø¯Ù‡ Ø§Ø² ÙˆØ±ÙˆØ¯ÛŒ ØµÙˆØªÛŒ (Ø¯Ø± ØµÙˆØ±Øª Ù¾Ø´ØªÛŒØ¨Ø§Ù†ÛŒ):  
+  - Ø§Ø¬Ø±Ø§ÛŒ Ø§Ø³Ú©Ø±ÛŒÙ¾Øª Ùˆ
